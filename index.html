@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ecommerce</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #238636, #2ea043);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2rem;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff, #f78166);
+    }
+
+    .project-name {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+
+    .tagline {
+      color: #8b949e;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff);
+      border-radius: 2px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .repo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .repo-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8b949e;
+    }
+
+    .repo-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 0.85rem 1.5rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+
+    .repo-box:hover {
+      border-color: #58a6ff;
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+    }
+
+    .repo-icon {
+      width: 20px;
+      height: 20px;
+      fill: #58a6ff;
+      flex-shrink: 0;
+    }
+
+    .repo-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #58a6ff;
+      letter-spacing: 0.01em;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #21262d;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #e6edf3;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8b949e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #8b949e;
+      font-size: 0.875rem;
+      border-top: 1px solid #21262d;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    footer span {
+      background: linear-gradient(90deg, #58a6ff, #bc8cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      .project-name {
+        font-size: 2.2rem;
+      }
+
+      .card {
+        padding: 2rem 1.5rem;
+      }
+
+      .stats-row {
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <span class="badge">&#9679; Active Project</span>
+
+    <div class="card">
+      <h1 class="project-name">Ecommerce</h1>
+      <p class="tagline">A modern, scalable web application built for seamless online shopping experiences.</p>
+      <div class="divider"></div>
+
+      <div class="repo-section">
+        <p class="repo-label">Repository</p>
+        <div class="repo-box">
+          <svg class="repo-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/>
+          </svg>
+          <span class="repo-name">ecommercewebapp</span>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-value">&#128722;</span>
+          <span class="stat-label">Shopping</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">&#9889;</span>
+          <span class="stat-label">Fast</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">&#128275;</span>
+          <span class="stat-label">Secure</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">&#127760;</span>
+          <span class="stat-label">Scalable</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Developed by <span>Royal Bengal AI</span>
+  </footer>
+
+</body>
+</html>
