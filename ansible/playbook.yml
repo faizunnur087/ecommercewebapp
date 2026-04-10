@@ -7,7 +7,7 @@
     app_name: ecommerce
     app_dir: /opt/ecommerce
     app_user: ubuntu
-    python_entrypoint: "index:app"
+    python_entrypoint: "main:app"
     app_port: 8000
 
   handlers:
