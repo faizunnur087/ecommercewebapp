@@ -7,7 +7,7 @@
     app_name: ecommerce
     app_dir: /opt/ecommerce
     app_user: ubuntu
-    python_entrypoint: "main:app"
+    python_entrypoint: "index:app"
     app_port: 8000
 
   handlers:
@@ -76,6 +76,13 @@
       become_user: "{{ app_user }}"
       when: requirements_stat.stat.exists
 
+    - name: Install gunicorn in virtualenv
+      pip:
+        name: gunicorn
+        virtualenv: "{{ app_dir }}/venv"
+      become: yes
+      become_user: "{{ app_user }}"
+
     - name: Write application environment file
       shell: |
         printf '' > {{ app_dir }}/.env
@@ -107,12 +114,46 @@
         group: "{{ app_user }}"
         mode: "0600"
 
-    - name: Install gunicorn in virtualenv
+    - name: Check if index.html exists (static site)
+      stat:
+        path: "{{ app_dir }}/index.html"
+      register: index_html_stat
+
+    - name: Check if main.py exists
+      stat:
+        path: "{{ app_dir }}/main.py"
+      register: main_py_stat
+
+    - name: Create minimal Python app if no Python entrypoint exists
+      copy:
+        dest: "{{ app_dir }}/main.py"
+        owner: "{{ app_user }}"
+        group: "{{ app_user }}"
+        mode: "0644"
+        content: |
+          import os
+          from flask import Flask, send_from_directory
+
+          app = Flask(__name__, static_folder='.')
+
+          @app.route('/', defaults={'path': ''})
+          @app.route('/<path:path>')
+          def serve(path):
+              if path and os.path.exists(os.path.join(app.static_folder, path)):
+                  return send_from_directory(app.static_folder, path)
+              return send_from_directory(app.static_folder, 'index.html')
+
+          if __name__ == '__main__':
+              app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
+      when: not main_py_stat.stat.exists and index_html_stat.stat.exists
+
+    - name: Install flask in virtualenv (needed for static site serving)
       pip:
-        name: gunicorn
+        name: flask
         virtualenv: "{{ app_dir }}/venv"
       become: yes
       become_user: "{{ app_user }}"
+      when: not main_py_stat.stat.exists and index_html_stat.stat.exists
 
     - name: Create systemd service for ecommerce
       copy:
